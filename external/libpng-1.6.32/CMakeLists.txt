@@ -103,7 +103,9 @@ if(CMAKE_SYSTEM_PROCESSOR MATCHES "^arm" OR
       arm/filter_neon.S
       arm/filter_neon_intrinsics.c)
 
-    if(${PNG_ARM_NEON} STREQUAL "on")
+    if(AARCH64)
+      add_definitions(-DPNG_ARM_NEON_OPT=0) # NEON assembler is not supported
+    elseif(${PNG_ARM_NEON} STREQUAL "on")
       add_definitions(-DPNG_ARM_NEON_OPT=2)
     elseif(${PNG_ARM_NEON} STREQUAL "check")
       add_definitions(-DPNG_ARM_NEON_CHECK_SUPPORTED)
